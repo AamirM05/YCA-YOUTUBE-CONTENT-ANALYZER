@@ -195,9 +195,6 @@ The application follows a modular architecture with the following components:
 - `static/results/`: Data storage for processed analysis results
 
 ## 🚀 Future Enhancements
-
-Based on data engineering best practices, the following enhancements could further strengthen the project:
-
 ### Database Integration
 - Implement a proper database (PostgreSQL, MongoDB, or BigQuery) instead of file-based storage
 - Create data models and schemas for efficient querying and analysis
