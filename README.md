@@ -65,16 +65,13 @@ http://localhost:5000
 
 ### Input Form
 
-![Input Form](https://via.placeholder.com/800x200?text=Input+Form)
+![Input Form](https://raw.githubusercontent.com/AamirM05/YCA-YOUTUBE-CONTENT-ANALYZER/refs/heads/main/IMAGES/1.png)
 
 The input form allows you to specify:
 - **Channel URL**: The YouTube channel to analyze (must be in the format `https://www.youtube.com/@channelname`)
 - **Time Period**: How far back to analyze videos (1, 2, 3, 6, or 12 months)
 
 ### Stats Cards
-
-![Stats Cards](https://via.placeholder.com/800x200?text=Stats+Cards)
-
 The stats cards provide a quick overview of the analysis results:
 - **Videos Analyzed**: Total number of videos analyzed in the selected time period
 - **Videos with Subtitles**: Number of videos that have subtitles available
@@ -82,7 +79,7 @@ The stats cards provide a quick overview of the analysis results:
 
 ### Charts and Visualizations
 
-![Charts](https://via.placeholder.com/800x400?text=Charts+and+Visualizations)
+![Charts](https://raw.githubusercontent.com/AamirM05/YCA-YOUTUBE-CONTENT-ANALYZER/refs/heads/main/IMAGES/Screenshot%202025-02-26%20235318.png)
 
 The application provides multiple interactive charts:
 
@@ -93,7 +90,7 @@ The application provides multiple interactive charts:
 
 ### Content Ideas
 
-![Content Ideas](https://via.placeholder.com/800x300?text=Content+Ideas)
+![Content Ideas](https://raw.githubusercontent.com/AamirM05/YCA-YOUTUBE-CONTENT-ANALYZER/refs/heads/main/IMAGES/Screenshot%202025-02-26%20235401.png)
 
 The AI-powered content ideas section provides:
 - Analysis of top-performing content patterns and themes
@@ -104,7 +101,7 @@ The AI-powered content ideas section provides:
 
 ### Video List with Filtering
 
-![Video List](https://via.placeholder.com/800x400?text=Video+List+with+Filtering)
+![Video List](https://raw.githubusercontent.com/AamirM05/YCA-YOUTUBE-CONTENT-ANALYZER/refs/heads/main/IMAGES/Screenshot%202025-02-26%20235453.png)
 
 The video list displays all analyzed videos with:
 - Thumbnail image
@@ -121,16 +118,13 @@ The video list displays all analyzed videos with:
 
 ### Advanced Features
 
-![Advanced Features](https://via.placeholder.com/800x300?text=Advanced+Features)
+![Advanced Features](https://raw.githubusercontent.com/AamirM05/YCA-YOUTUBE-CONTENT-ANALYZER/refs/heads/main/IMAGES/bottom.png)
 
 The advanced features section includes:
 - **Content Analysis**: Deeper analysis of content patterns and success factors
 - **Channel Comparison**: Compare the analyzed channel with another YouTube channel
 
 ### Download Options
-
-![Download Options](https://via.placeholder.com/800x200?text=Download+Options)
-
 The download section allows you to export analysis results in multiple formats:
 - **CSV**: Download video data in CSV format
 - **JSON**: Download complete analysis results in JSON format
@@ -160,7 +154,7 @@ This project incorporates several key data engineering components:
 - **Metric Comparison**: Visual tools for comparing performance across videos
 - **Trend Analysis**: Timeline and distribution visualizations for pattern recognition
 
-![Data Pipeline](https://via.placeholder.com/800x400?text=Data+Engineering+Pipeline)
+![Data Pipeline](https://raw.githubusercontent.com/AamirM05/YCA-YOUTUBE-CONTENT-ANALYZER/refs/heads/main/IMAGES/Screenshot%20(46)%20(1)%20(2)%20(1).png)
 
 ## 🔮 Upcoming Features
 
@@ -224,12 +218,4 @@ Based on data engineering best practices, the following enhancements could furth
 - Implement monitoring for pipeline health and performance
 - Create alerting for pipeline failures or data quality issues
 
-![Future Architecture](https://via.placeholder.com/800x400?text=Future+Data+Engineering+Architecture)
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-Created with ❤️ by [Your Name]
+Created with ❤️ by [MOHAMMAD AAMIR]
