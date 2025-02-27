@@ -1,4 +1,4 @@
-# YouTube Channel Content Analyzer
+# YCA-YOUTUBE-CONTENT-ANALYZER
 
 ![Project Banner](https://raw.githubusercontent.com/AamirM05/YCA-YOUTUBE-CONTENT-ANALYZER/refs/heads/main/IMAGES/screencapture-127-0-0-1-5000-2025-02-26-23_56_39.png)
 
