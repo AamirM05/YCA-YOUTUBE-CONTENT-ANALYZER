@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Channel Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">YouTube Channel Content Analyzer</h1>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <form id="analyzeForm">
+                    <div class="mb-3">
+                        <label for="channelUrl" class="form-label">Channel URL</label>
+                        <input type="text" class="form-control" id="channelUrl" required
+                               placeholder="https://www.youtube.com/@channelname">
+                    </div>
+                    <div class="mb-3">
+                        <label for="monthsBack" class="form-label">Analyze Last N Months</label>
+                        <select class="form-select" id="monthsBack">
+                            <option value="1">1 Month</option>
+                            <option value="2" selected>2 Months</option>
+                            <option value="3">3 Months</option>
+                            <option value="6">6 Months</option>
+                            <option value="12">12 Months</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="analyzeBtn">
+                        Analyze Channel
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="text-center mt-4" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Analyzing channel content... This may take a few minutes.</p>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="mt-4" style="display: none;">
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-4 mb-3">
+                    <div class="stats-card text-center">
+                        <i class="fas fa-video stats-icon"></i>
+                        <h6>VIDEOS ANALYZED</h6>
+                        <p id="videoCount">0</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="stats-card text-center">
+                        <i class="fas fa-closed-captioning stats-icon"></i>
+                        <h6>VIDEOS WITH SUBTITLES</h6>
+                        <p id="subtitleCount">0</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="stats-card text-center">
+                        <i class="fas fa-chart-line stats-icon"></i>
+                        <h6>TOTAL VIEWS</h6>
+                        <p id="totalViews">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                    <div class="chart-container">
+                        <canvas id="viewsChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="chart-container">
+                        <canvas id="uploadTimelineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Charts -->
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                    <div class="chart-container">
+                        <canvas id="durationChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="chart-container">
+                        <canvas id="engagementChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Ideas -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Generated Content Ideas</h5>
+                </div>
+                <div class="card-body">
+                    <pre id="ideasText" class="p-3 rounded"></pre>
+                </div>
+            </div>
+
+            <!-- Video List with Filtering and Sorting -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-list me-2"></i>Analyzed Videos</h5>
+                        <div class="d-flex">
+                            <div class="input-group me-2" style="width: 250px;">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="text" class="form-control" id="videoSearch" placeholder="Search videos...">
+                            </div>
+                            <select class="form-select" id="videoSort" style="width: 180px;">
+                                <option value="views-desc">Views (High to Low)</option>
+                                <option value="views-asc">Views (Low to High)</option>
+                                <option value="date-desc">Date (Newest First)</option>
+                                <option value="date-asc">Date (Oldest First)</option>
+                                <option value="duration-desc">Duration (Longest First)</option>
+                                <option value="duration-asc">Duration (Shortest First)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Thumbnail</th>
+                                    <th>Title</th>
+                                    <th>Views</th>
+                                    <th>Duration</th>
+                                    <th>Upload Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="videoTable">
+                                <!-- Videos will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Features -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-cogs me-2"></i>Advanced Features</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-chart-pie me-2"></i>Content Analysis</h6>
+                                    <p class="small text-muted">Analyze the content patterns and identify what makes videos successful.</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-outline-primary" id="contentAnalysisBtn">
+                                            <i class="fas fa-brain me-2"></i>Analyze Content Patterns
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-random me-2"></i>Channel Comparison</h6>
+                                    <p class="small text-muted">Compare this channel with another YouTube channel.</p>
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control" id="compareChannelUrl" placeholder="Enter another channel URL">
+                                        <button class="btn btn-outline-primary" id="compareChannelBtn">
+                                            <i class="fas fa-exchange-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-download me-2"></i>Download Analysis Results</h5>
+                </div>
+                <div class="card-body">
+                    <div class="btn-group">
+                        <a id="csvDownload" class="btn btn-outline-primary" target="_blank">
+                            <i class="fas fa-file-csv me-2"></i>Download CSV
+                        </a>
+                        <a id="jsonDownload" class="btn btn-outline-primary" target="_blank">
+                            <i class="fas fa-file-code me-2"></i>Download JSON
+                        </a>
+                        <button class="btn btn-outline-primary" id="exportPdfBtn">
+                            <i class="fas fa-file-pdf me-2"></i>Export as PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Alert -->
+        <div class="alert alert-danger mt-4" id="error" style="display: none;">
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
