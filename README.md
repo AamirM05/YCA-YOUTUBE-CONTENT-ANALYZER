@@ -1,6 +1,6 @@
 # YouTube Channel Content Analyzer
 
-![Project Banner](https://via.placeholder.com/1200x300?text=YouTube+Channel+Content+Analyzer)
+![Project Banner](https://raw.githubusercontent.com/AamirM05/YCA-YOUTUBE-CONTENT-ANALYZER/refs/heads/main/IMAGES/screencapture-127-0-0-1-5000-2025-02-26-23_56_39.png)
 
 A powerful data engineering tool that extracts, transforms, and analyzes YouTube channel data to generate content insights, visualize trends, and provide strategic recommendations for content creators. This project implements a complete ETL (Extract, Transform, Load) pipeline for YouTube content analysis.
 
